@@ -69,5 +69,5 @@ folium.TileLayer('Stamen Toner').add_to(map)
 map.add_child(folium.LayerControl())
 
 
-
-map.save("Map1.html")
+# Version 1.0
+map.save("Map1.0.html")
