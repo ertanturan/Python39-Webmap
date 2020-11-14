@@ -60,4 +60,6 @@ map = folium.Map(location=[volcanoDatas[0].Coordinate.Lat, volcanoDatas[0].Coord
 map.add_child(volcanoesFeatureGroup)
 map.add_child(populationFeatureGroup)
 
+map.add_child(folium.LayerControl())
+
 map.save("Map1.html")
