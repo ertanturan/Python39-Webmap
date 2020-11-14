@@ -2,7 +2,7 @@ import folium
 import pandas
 import Coordinate as cor
 import VolcanoData
-
+import  os
 
 def ReadCSV(path):
     return pandas.read_csv(path)
@@ -24,8 +24,8 @@ def ColorByElevation(elevation):
 volcanoesFeatureGroup = folium.FeatureGroup(name="VolcanoFeatureGroup")
 populationFeatureGroup = folium.FeatureGroup(name="PopulationFeatureGroup")
 
-volcanoesDataFrame = ReadCSV("Volcanoes.txt")
-populationDataFrame = ReadJson("world.json")
+volcanoesDataFrame = ReadCSV(os.getcwd()+"/Datas/Volcanoes.txt")
+populationDataFrame = ReadJson(os.getcwd()+"/Datas/world.json")
 
 volcanoDatas = [VolcanoData.VolcanoData(cor.Coordinate(lat, lon), volcanoName, volcanoElevation)
                 for lat, lon, volcanoName, volcanoElevation in
