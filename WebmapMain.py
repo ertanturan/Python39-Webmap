@@ -1,5 +1,6 @@
 import folium
 import pandas
+import Coordinate as cor
 
 
 def readCsv(path):
@@ -19,17 +20,13 @@ map.save("Map1.html")
 
 volcanoesDataFrame = readCsv("Volcanoes.txt")
 
-# for coordinate in coordinates:
-#     print(coordinate[0],coordinate[1])
+
 
 lat = volcanoesDataFrame["LAT"]
 lon = volcanoesDataFrame["LON"]
 
 
-class Coordinate:
-    def __init__(self, lat, lon):
-        self.Lat = lat
-        self.Lon = lon
 
 
-coordinates = [Coordinate(lat[i], lon[i]) for i in range(0, len(lat))]
+
+coordinates = [cor.Coordinate(lat[i], lon[i]) for i in range(0, len(lat))]
