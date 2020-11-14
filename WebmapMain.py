@@ -27,7 +27,6 @@ populationFeatureGroup = folium.FeatureGroup(name="PopulationFeatureGroup")
 volcanoesDataFrame = ReadCSV("Volcanoes.txt")
 populationDataFrame = ReadJson("world.json")
 
-
 volcanoDatas = [VolcanoData.VolcanoData(cor.Coordinate(lat, lon), volcanoName, volcanoElevation)
                 for lat, lon, volcanoName, volcanoElevation in
                 zip(volcanoesDataFrame["LAT"],
@@ -39,7 +38,21 @@ for volcanoData in volcanoDatas:
                             popup=volcanoData.VolcanoName, fill_color=ColorByElevation(volcanoData.Elevation),
                             fill_opacity=0.8, color="grey"))
 
-populationFeatureGroup.add_child(folium.GeoJson(populationDataFrame))
+highPopulationColor = "red"
+mediumPopulationColor = "blue"
+lowPopulationColor = "yellow"
+
+lowPopulation = 10000000  # 10 million
+mediumPopulation = 80000000  # 80 million
+highPopulation = 900000000  # 900 million
+
+populationFeatureGroup.add_child(folium.GeoJson(populationDataFrame,
+                                                style_function=
+                                                lambda x: {'fillColor': lowPopulationColor if x['properties'][
+                                                                                                  'POP2005'] < lowPopulation
+                                                else mediumPopulationColor if x['properties'][
+                                                                                  'POP2005'] <= mediumPopulation
+                                                else highPopulationColor,'fillOpacity':0.5}))
 
 map = folium.Map(location=[volcanoDatas[0].Coordinate.Lat, volcanoDatas[0].Coordinate.Lon], zoom_start=6,
                  tiles="Stamen Terrain")
