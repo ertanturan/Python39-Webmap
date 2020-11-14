@@ -60,6 +60,14 @@ map = folium.Map(location=[volcanoDatas[0].Coordinate.Lat, volcanoDatas[0].Coord
 map.add_child(volcanoesFeatureGroup)
 map.add_child(populationFeatureGroup)
 
+baseMaps=['openstreetmap']
+
+folium.TileLayer('OpenStreetMap').add_to(map)
+folium.TileLayer('Stamen Toner').add_to(map)
+
+
 map.add_child(folium.LayerControl())
+
+
 
 map.save("Map1.html")
