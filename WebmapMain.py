@@ -16,11 +16,11 @@ def ColorByElevation(elevation):
     else:
         return "red"
 
-map = folium.Map(location=[39.913595, 32.854360], zoom_start=6, tiles="Stamen Terrain")
-
 volcanoesFeatureGroup = folium.FeatureGroup(name="VolcanoFeatureGroup")
 
 volcanoesDataFrame = ReadCSV("Volcanoes.txt")
+
+
 
 print(len(volcanoesDataFrame))
 
@@ -31,9 +31,13 @@ volcanoDatas = [VolcanoData.VolcanoData(cor.Coordinate(lat, lon), volcanoName,vo
 
 for volcanoData in volcanoDatas:
     volcanoesFeatureGroup.add_child(
-        folium.Marker(location=[volcanoData.Coordinate.Lat, volcanoData.Coordinate.Lon],
-                      popup=volcanoData.VolcanoName,
-                      icon=folium.Icon(color=ColorByElevation(volcanoData.Elevation))))
+        folium.CircleMarker(radius=10, location=(volcanoData.Coordinate.Lat, volcanoData.Coordinate.Lon),
+                      popup=volcanoData.VolcanoName,fill_color= ColorByElevation(volcanoData.Elevation),
+                     fill_opacity=0.8, color="grey"))
+
+
+map = folium.Map(location=[volcanoDatas[0].Coordinate.Lat, volcanoDatas[0].Coordinate.Lon], zoom_start=6, tiles="Stamen Terrain")
+
 
 map.add_child(volcanoesFeatureGroup)
 
